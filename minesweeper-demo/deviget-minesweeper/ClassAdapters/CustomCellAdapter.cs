@@ -67,7 +67,55 @@ namespace deviget_minesweeper.ClassAdapters
 
 
 
-            objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.untouched);
+            if (!objCell.isFlipped)
+            {
+                objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.untouched);
+            }
+            else if (objCell.isFlipped && !objCell.containsMine)
+            {
+                if (objCell.showNumber == 0)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.zero);
+                }
+                else if (objCell.showNumber == 1)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.one);
+                }
+                else if (objCell.showNumber == 2)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.two);
+                }
+                else if (objCell.showNumber == 3)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.three);
+                }
+                else if (objCell.showNumber == 4)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.four);
+                }
+                else if (objCell.showNumber == 5)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.five);
+                }
+                else if (objCell.showNumber == 6)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.six);
+                }
+                else if (objCell.showNumber == 7)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.seven);
+                }
+                else if (objCell.showNumber == 8)
+                {
+                    objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.eight);
+                }
+
+            }
+            else if (objCell.isFlipped && objCell.containsMine)
+            {
+                objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.mine);
+            }
+
 
             return view;
         }

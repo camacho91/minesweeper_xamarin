@@ -28,6 +28,8 @@ namespace deviget_minesweeper
         //Custom Adapter for Cell objects
         public static deviget_minesweeper.ClassAdapters.CustomCellAdapter objCell;
 
+        //Random object
+        Random rand = new Random();
         #endregion
 
 
@@ -51,6 +53,7 @@ namespace deviget_minesweeper
             //All Game Data
             GameData = new GameVariables.GameMatrix(settings.xAxis, settings.yAxis, settings.mines);
 
+            GameData.InitialSetup(rand);
             //List is sent to the Custom Adapter
             objCell = new deviget_minesweeper.ClassAdapters.CustomCellAdapter(GameData.ListCells, (AppCompatActivity)this);
 
@@ -74,16 +77,25 @@ namespace deviget_minesweeper
         private void ObjCell_actionMenuSelected(int xCoord, int yCoord)
         {
             
+            updateGameboard();
+        }
+
+        /// <summary>
+        /// Refresh the Game data
+        /// </summary>
+        public void updateGameboard()
+        {
+            gridGame.Adapter = null;
+            objCell = new deviget_minesweeper.ClassAdapters.CustomCellAdapter(GameData.ListCells, (AppCompatActivity)this);
+            objCell.actionMenuSelected += ObjCell_actionMenuSelected;
+            gridGame.Adapter = objCell;
+            objCell.NotifyDataSetChanged();
+
         }
         #endregion
 
 
 
-        #region Classes
 
-       
-
-
-            #endregion
-        }
+    }
 }

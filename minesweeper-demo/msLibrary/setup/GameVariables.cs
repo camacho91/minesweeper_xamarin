@@ -45,8 +45,11 @@ namespace msLibrary.setup
 
         public class Cells
         {
-            public int xCoord;
-            public int yCoord;
+            public int xCoord { get; set; }
+            public int yCoord { get; set; }
+            public bool isFlipped { get; set; }
+            public bool containsMine { get; set; }
+            public int showNumber { get; set; }
 
             public Cells(int _xCoord, int _yCoord)
             {
@@ -78,6 +81,44 @@ namespace msLibrary.setup
                     }
                 }
 
+            }
+
+            public List<Cells> GetAdjacentCells(int x, int y)
+            {
+                return GetAdjacentCells(x, y, 1);
+            }
+
+            public List<Cells> GetAdjacentCells(int x, int y, int depth)
+            {
+                var AdjacentCells = ListCells.Where(cell => cell.xCoord >= (x - depth) && cell.xCoord <= (x + depth) && cell.yCoord >= (y - depth) && cell.yCoord <= (y + depth));
+                var currentCell = ListCells.Where(cell => cell.xCoord == x && cell.yCoord == y);
+
+                return AdjacentCells.Except(currentCell).ToList();
+            }
+
+
+            public void InitialSetup(Random rand)
+            {
+                //List is reordered randomly
+                var listRandom = ListCells.OrderBy(x => rand.Next());
+
+                //The first records(Equivalent to the amount of mines) are stored in the collection
+                var mineCells = listRandom.Take(MineCount).ToList().Select(z => new { z.xCoord, z.yCoord });
+
+                //Set the ContainsMine property to true to the records that match de mineCells collection
+                foreach (var mineCoord in mineCells)
+                {
+                    ListCells.Single(panel => panel.xCoord == mineCoord.xCoord && panel.yCoord == mineCoord.yCoord).containsMine = true;
+                }
+
+                //Determine if the adjacent mines are safe
+                foreach (var safeCell in ListCells.Where(panel => !panel.containsMine))
+                {
+                    var adjacentCells = GetAdjacentCells(safeCell.xCoord, safeCell.yCoord);
+
+                    //Sets the number to be shown when the cell is pressed
+                    safeCell.showNumber = adjacentCells.Count(z => z.containsMine);
+                }
             }
 
         }
