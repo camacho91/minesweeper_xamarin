@@ -77,14 +77,19 @@ namespace deviget_minesweeper
         private void ObjCell_actionMenuSelected(int xCoord, int yCoord, bool isMine)
         {
             
-            GameData.FlipCell(xCoord, yCoord);
+            if (isMine)
+            {
+                GameData.RevealMines();
+            }
+            else
+            {
+                GameData.FlipCell(xCoord, yCoord);
+            }
+
+
             updateGameboard();
 
 
-            if (isMine)
-            {
-
-            }
         }
 
         /// <summary>

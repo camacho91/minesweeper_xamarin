@@ -13,7 +13,6 @@ namespace msLibrary.setup
         public int Height { get; set; }
         public int MineCount { get; set; }
         public List<Cells> ListCells { get; set; }
-
         public GameMatrix(int width, int height, int mines)
         {
             Width = width;
@@ -60,6 +59,7 @@ namespace msLibrary.setup
             foreach (var mineCoord in mineCells)
             {
                 ListCells.Single(panel => panel.xCoord == mineCoord.xCoord && panel.yCoord == mineCoord.yCoord).containsMine = true;
+                
             }
 
             //Determine if the adjacent mines are safe
@@ -111,6 +111,19 @@ namespace msLibrary.setup
                 {
                     RevealBlank(cell.xCoord, cell.yCoord);
                 }
+            }
+        }
+
+        public void RevealMines()
+        {
+            //Determine if the adjacent mines are mines
+            foreach (var mineCell in ListCells.Where(panel => panel.containsMine))
+            {
+                var adjacentCells = GetAdjacentCells(mineCell.xCoord, mineCell.yCoord);
+
+
+                //Flips the mine cell
+                mineCell.isFlipped = true;
             }
         }
 
