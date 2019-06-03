@@ -30,6 +30,9 @@ namespace deviget_minesweeper
 
         //Random object
         Random rand = new Random();
+
+        //Button to reset game
+        ImageView imgResetGame;
         #endregion
 
 
@@ -43,6 +46,9 @@ namespace deviget_minesweeper
 
             //Grid initialization
             gridGame = FindViewById<GridView>(Resource.Id.gridGame);
+
+            //Imageview Initialization
+            imgResetGame = FindViewById<ImageView>(Resource.Id.imgResetGame);
 
             //Object with game settings
             settings = SetupGame.LoadGameSetup("easy");
@@ -59,6 +65,7 @@ namespace deviget_minesweeper
 
 
             objCell.actionMenuSelected += ObjCell_actionMenuSelected;
+            imgResetGame.Click += ImgResetGame_Click;
 
             //Data populate to the GridView
             gridGame.Adapter = objCell;
@@ -68,7 +75,15 @@ namespace deviget_minesweeper
 
         }
 
-        
+        private void ImgResetGame_Click(object sender, EventArgs e)
+        {
+            GameData.ListCells.Clear();
+            GameData = new GameMatrix(settings.xAxis, settings.yAxis, settings.mines);
+            GameData.InitialSetup(rand);
+            updateGameboard();
+        }
+
+
         /// <summary>
         /// Click event for cells
         /// </summary>
