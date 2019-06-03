@@ -42,5 +42,46 @@ namespace msLibrary.setup
         }
 
 
+
+        public class Cells
+        {
+            public int xCoord;
+            public int yCoord;
+
+            public Cells(int _xCoord, int _yCoord)
+            {
+                xCoord = _xCoord;
+                yCoord = _yCoord;
+            }
+
+        }
+
+        public class GameMatrix
+        {
+            public int Width { get; set; }
+            public int Height { get; set; }
+            public int MineCount { get; set; }
+            public List<Cells> ListCells { get; set; }
+
+            public GameMatrix(int width, int height, int mines)
+            {
+                Width = width;
+                Height = height;
+                MineCount = mines;
+                ListCells = new List<Cells>();
+
+                for (int i = 1; i <= height; i++)
+                {
+                    for (int j = 1; j <= width; j++)
+                    {
+                        ListCells.Add(new Cells(j, i));
+                    }
+                }
+
+            }
+
+        }
+
+
     }
 }
