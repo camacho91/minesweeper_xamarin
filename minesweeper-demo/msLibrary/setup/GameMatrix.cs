@@ -127,6 +127,32 @@ namespace msLibrary.setup
             }
         }
 
+        /// <summary>
+        /// Flag Cells
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void FlagCell(int x, int y, int availableFlags)
+        {
+            
+            var cell = ListCells.Where(z => z.xCoord == x && z.yCoord == y).First();
+
+            if (!cell.isFlipped && !cell.ContainsFlag)
+            {
+                if(availableFlags > 0)
+                {
+                    cell.ContainsFlag = true;
+                }
+            }
+            else if (!cell.isFlipped && cell.ContainsFlag)
+            {
+                cell.ContainsFlag = false;
+            }
+
+
+
+        }
+
 
     }
 }

@@ -18,7 +18,7 @@ namespace deviget_minesweeper.ClassAdapters
     {
 
         AppCompatActivity context;
-        internal event Action<int, int, bool> actionMenuSelected;
+        internal event Action<int, int, bool, bool> actionMenuSelected;
         List<GameVariables.Cells> listCells = new List<GameVariables.Cells>();
 
         public CustomCellAdapter(List<GameVariables.Cells> listCells, AppCompatActivity context)
@@ -61,13 +61,13 @@ namespace deviget_minesweeper.ClassAdapters
             {
                 if (actionMenuSelected != null)
                 {
-                    actionMenuSelected(objCell.xCoord, objCell.yCoord, objCell.containsMine);
+                    actionMenuSelected(objCell.xCoord, objCell.yCoord, objCell.containsMine, objCell.ContainsFlag);
                 }
             };
 
 
 
-            if (!objCell.isFlipped)
+            if (!objCell.isFlipped && !objCell.ContainsFlag)
             {
                 objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.untouched);
             }
@@ -114,6 +114,10 @@ namespace deviget_minesweeper.ClassAdapters
             else if (objCell.isFlipped && objCell.containsMine)
             {
                 objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.mine);
+            }
+            else if (!objCell.isFlipped && objCell.ContainsFlag)
+            {
+                objCellHolderClass.imgValue.SetImageResource(Resource.Drawable.flagged);
             }
 
 

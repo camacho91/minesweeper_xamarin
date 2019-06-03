@@ -60,6 +60,14 @@
 			android:layout_weight="1"
 			android:background="#d3d3d3"
 			android:gravity="center">
+			 <ImageView
+				android:padding="5dp"
+				android:adjustViewBounds="true"
+				android:src="@drawable/flagged"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:scaleType="centerInside"
+				android:id="@+id/imgflag" />
 		</LinearLayout>
 		<LinearLayout
 			android:layout_width="0dp"
@@ -92,6 +100,14 @@
 		android:layout_height="0dp"
 		android:background="#d3d3d3"
 		android:layout_weight="2">
+		<TextView
+			android:text="Tip: Tap the flag icon to enter flag mode. To exit, tap the flag icon again"
+			android:textColor="@android:color/black"
+			android:textSize="18sp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:paddingRight="25dp"
+			android:paddingLeft="25dp">
 	</LinearLayout>
 
 </LinearLayout>

@@ -50,6 +50,7 @@ namespace msLibrary.setup
             public bool isFlipped { get; set; }
             public bool containsMine { get; set; }
             public int showNumber { get; set; }
+            public bool ContainsFlag { get; internal set; }
 
             public Cells(int _xCoord, int _yCoord)
             {
