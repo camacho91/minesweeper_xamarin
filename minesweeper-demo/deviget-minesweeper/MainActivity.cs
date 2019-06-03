@@ -33,6 +33,9 @@ namespace deviget_minesweeper
 
         //Button to reset game
         ImageView imgResetGame;
+
+        //Game Over Bool
+        public bool isGameOver = false;
         #endregion
 
 
@@ -77,6 +80,12 @@ namespace deviget_minesweeper
 
         private void ImgResetGame_Click(object sender, EventArgs e)
         {
+            ResetGame();
+        }
+
+        public void ResetGame()
+        {
+            isGameOver = false;
             GameData.ListCells.Clear();
             GameData = new GameMatrix(settings.xAxis, settings.yAxis, settings.mines);
             GameData.InitialSetup(rand);
@@ -91,18 +100,28 @@ namespace deviget_minesweeper
         /// <param name="arg2">Y Coordinate</param>
         private void ObjCell_actionMenuSelected(int xCoord, int yCoord, bool isMine)
         {
-            
-            if (isMine)
+            if (!isGameOver)
             {
-                GameData.RevealMines();
+                if (isMine)
+                {
+                    GameData.RevealMines();
+                    isGameOver = true;
+                    Toast.MakeText(this, "Game Over", ToastLength.Long);
+
+                }
+                else
+                {
+                    GameData.FlipCell(xCoord, yCoord);
+                }
+
+
+                updateGameboard();
             }
             else
             {
-                GameData.FlipCell(xCoord, yCoord);
+                ResetGame();
             }
-
-
-            updateGameboard();
+            
 
 
         }
