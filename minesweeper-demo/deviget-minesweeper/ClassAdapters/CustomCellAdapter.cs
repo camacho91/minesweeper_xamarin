@@ -18,7 +18,7 @@ namespace deviget_minesweeper.ClassAdapters
     {
 
         AppCompatActivity context;
-        internal event Action<int, int> actionMenuSelected;
+        internal event Action<int, int, bool> actionMenuSelected;
         List<GameVariables.Cells> listCells = new List<GameVariables.Cells>();
 
         public CustomCellAdapter(List<GameVariables.Cells> listCells, AppCompatActivity context)
@@ -61,7 +61,7 @@ namespace deviget_minesweeper.ClassAdapters
             {
                 if (actionMenuSelected != null)
                 {
-                    actionMenuSelected(objCell.xCoord, objCell.yCoord);
+                    actionMenuSelected(objCell.xCoord, objCell.yCoord, objCell.containsMine);
                 }
             };
 

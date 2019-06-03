@@ -23,7 +23,7 @@ namespace deviget_minesweeper
         private GameVariables.GameSetting settings;
 
         //Object with game data
-        public GameVariables.GameMatrix GameData { get; private set; }
+        public GameMatrix GameData { get; private set; }
 
         //Custom Adapter for Cell objects
         public static deviget_minesweeper.ClassAdapters.CustomCellAdapter objCell;
@@ -51,7 +51,7 @@ namespace deviget_minesweeper
             gridGame.NumColumns = settings.xAxis;
 
             //All Game Data
-            GameData = new GameVariables.GameMatrix(settings.xAxis, settings.yAxis, settings.mines);
+            GameData = new GameMatrix(settings.xAxis, settings.yAxis, settings.mines);
 
             GameData.InitialSetup(rand);
             //List is sent to the Custom Adapter
@@ -74,10 +74,17 @@ namespace deviget_minesweeper
         /// </summary>
         /// <param name="arg1">X Coordinate</param>
         /// <param name="arg2">Y Coordinate</param>
-        private void ObjCell_actionMenuSelected(int xCoord, int yCoord)
+        private void ObjCell_actionMenuSelected(int xCoord, int yCoord, bool isMine)
         {
             
+            GameData.FlipCell(xCoord, yCoord);
             updateGameboard();
+
+
+            if (isMine)
+            {
+
+            }
         }
 
         /// <summary>

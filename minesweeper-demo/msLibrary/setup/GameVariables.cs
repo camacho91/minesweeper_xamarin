@@ -59,69 +59,7 @@ namespace msLibrary.setup
 
         }
 
-        public class GameMatrix
-        {
-            public int Width { get; set; }
-            public int Height { get; set; }
-            public int MineCount { get; set; }
-            public List<Cells> ListCells { get; set; }
-
-            public GameMatrix(int width, int height, int mines)
-            {
-                Width = width;
-                Height = height;
-                MineCount = mines;
-                ListCells = new List<Cells>();
-
-                for (int i = 1; i <= height; i++)
-                {
-                    for (int j = 1; j <= width; j++)
-                    {
-                        ListCells.Add(new Cells(j, i));
-                    }
-                }
-
-            }
-
-            public List<Cells> GetAdjacentCells(int x, int y)
-            {
-                return GetAdjacentCells(x, y, 1);
-            }
-
-            public List<Cells> GetAdjacentCells(int x, int y, int depth)
-            {
-                var AdjacentCells = ListCells.Where(cell => cell.xCoord >= (x - depth) && cell.xCoord <= (x + depth) && cell.yCoord >= (y - depth) && cell.yCoord <= (y + depth));
-                var currentCell = ListCells.Where(cell => cell.xCoord == x && cell.yCoord == y);
-
-                return AdjacentCells.Except(currentCell).ToList();
-            }
-
-
-            public void InitialSetup(Random rand)
-            {
-                //List is reordered randomly
-                var listRandom = ListCells.OrderBy(x => rand.Next());
-
-                //The first records(Equivalent to the amount of mines) are stored in the collection
-                var mineCells = listRandom.Take(MineCount).ToList().Select(z => new { z.xCoord, z.yCoord });
-
-                //Set the ContainsMine property to true to the records that match de mineCells collection
-                foreach (var mineCoord in mineCells)
-                {
-                    ListCells.Single(panel => panel.xCoord == mineCoord.xCoord && panel.yCoord == mineCoord.yCoord).containsMine = true;
-                }
-
-                //Determine if the adjacent mines are safe
-                foreach (var safeCell in ListCells.Where(panel => !panel.containsMine))
-                {
-                    var adjacentCells = GetAdjacentCells(safeCell.xCoord, safeCell.yCoord);
-
-                    //Sets the number to be shown when the cell is pressed
-                    safeCell.showNumber = adjacentCells.Count(z => z.containsMine);
-                }
-            }
-
-        }
+        
 
 
     }
