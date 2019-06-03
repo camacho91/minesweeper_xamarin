@@ -1,0 +1,2 @@
+android.app.Application
+deviget_minesweeper.deviget_minesweeper
